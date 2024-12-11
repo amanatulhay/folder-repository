@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import getUser from "./controllers/userController";
 import getHello from "./controllers/helloController";
 import getRoot from "./controllers/rootController";
-const {getAllCategories, getCategoryById, postCategory, updateCategoryById, deleteCategoryById, getProductByName, getProductByCategoryAndName} = require("./controllers/categoryController");
+const {getAllCategories, getCategoryById, postCategory, updateCategoryById, deleteCategoryById, getProductByName, getProductByCategoryIdAndName} = require("./controllers/categoryController");
 const path = require('path');
 
 const PORT = 3000;
@@ -25,7 +25,7 @@ function init() {
   app.delete('/api/categories/:id', deleteCategoryById); // soal 5 - route DELETE kategori
   
   app.get('/api/search-product-by-name', getProductByName); // soal 6 - route GET query string cari produk by name
-  app.get('/api/search-product-by-category-and-name/:category', getProductByCategoryAndName); // soal 7 - route GET parameter dan query string cari produk by name and category
+  app.get('/api/search-product-by-category-and-name/:categoryId', getProductByCategoryIdAndName); // soal 7 - route GET parameter dan query string cari produk by name and category id
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

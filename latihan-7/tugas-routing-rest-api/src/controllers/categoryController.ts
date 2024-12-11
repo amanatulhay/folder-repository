@@ -49,8 +49,8 @@ const deleteCategoryById = (req: Request, res: Response) => {
 };
 
 const getProductByName = (req: Request, res: Response) => {
-    const query = req.query.name;
-    const product = products.find(p => p.name === query);
+    const query = String(req.query.name);
+    const product = products.find(p => p.name.toLowerCase() === query?.toLowerCase());
     if (product) {
         res.json(product);
     } else {
@@ -58,10 +58,11 @@ const getProductByName = (req: Request, res: Response) => {
     }
 };
 
-const getProductByCategoryAndName = (req: Request, res: Response) => {
-    const query = req.query.name;
-    const categoryId = req.params.category;
-    const product = products.find(p => (p.name === query));
+const getProductByCategoryIdAndName = (req: Request, res: Response) => {
+    const query = String(req.query.name);
+    const categoryId = parseInt(req.params.categoryId);    
+    const category = categories.find(c => c.id === categoryId);
+    const product = products.find(p => (p.name.toLowerCase() === query?.toLowerCase()) && (p.category === category?.name));
     if (product) {
         res.json(product);
     } else {
@@ -76,5 +77,5 @@ module.exports = {
     updateCategoryById,
     deleteCategoryById,
     getProductByName,
-    getProductByCategoryAndName
+    getProductByCategoryIdAndName
 }
