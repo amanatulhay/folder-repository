@@ -8,14 +8,14 @@ import categoryController from "../controllers/category.controller";
 const router = express.Router();
 
 // Route Searching
-router.get("/category/:id/products", categoryController.findCategoryProducts);
+router.get("/categories/:id/products", categoryController.findCategoryProducts);
 
 // Route Category
-router.get("/category", categoryController.findAll);
-router.post("/category", categoryController.create);
-router.get("/category/:id", categoryController.findOne);
-router.put("/category/:id", categoryController.update);
-router.delete("/category/:id", categoryController.delete);
+router.get("/categories", categoryController.findAll);
+router.post("/categories", categoryController.create);
+router.get("/categories/:id", categoryController.findOne);
+router.put("/categories/:id", categoryController.update);
+router.delete("/categories/:id", categoryController.delete);
 
 // Route Product
 router.get("/products", productsController.findAll);
