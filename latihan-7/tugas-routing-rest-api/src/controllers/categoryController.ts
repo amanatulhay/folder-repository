@@ -50,9 +50,11 @@ const deleteCategoryById = (req: Request, res: Response) => {
 
 const getProductByName = (req: Request, res: Response) => {
     const query = String(req.query.name);
-    const product = products.find(p => p.name.toLowerCase() === query?.toLowerCase());
-    if (product) {
-        res.json(product);
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
+    if (filteredProducts.length>0) {
+        res.json(filteredProducts);
     } else {
         res.status(404).json({ message: 'Product not found' });
     }
@@ -62,9 +64,13 @@ const getProductByCategoryIdAndName = (req: Request, res: Response) => {
     const query = String(req.query.name);
     const categoryId = parseInt(req.params.categoryId);    
     const category = categories.find(c => c.id === categoryId);
-    const product = products.find(p => (p.name.toLowerCase() === query?.toLowerCase()) && (p.category === category?.name));
-    if (product) {
-        res.json(product);
+    let filteredProducts = products.filter(p => (p.category === category?.name));
+    filteredProducts = filteredProducts.filter(product =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
+
+    if (filteredProducts.length>0) {
+        res.json(filteredProducts);
     } else {
         res.status(404).json({ message: 'Product not found' });
     }
